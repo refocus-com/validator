@@ -10,6 +10,7 @@ import (
 	"time"
 
 	ut "github.com/go-playground/universal-translator"
+	"github.com/shopspring/decimal"
 )
 
 const (
@@ -53,6 +54,7 @@ const (
 var (
 	timeDurationType = reflect.TypeOf(time.Duration(0))
 	timeType         = reflect.TypeOf(time.Time{})
+	decimalType      = reflect.TypeOf(decimal.Decimal{})
 
 	byteSliceType = reflect.TypeOf([]byte{})
 

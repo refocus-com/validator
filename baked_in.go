@@ -7,6 +7,7 @@ import (
 	"encoding/hex"
 	"encoding/json"
 	"fmt"
+	"github.com/shopspring/decimal"
 	"io/fs"
 	"net"
 	"net/url"
@@ -1343,6 +1344,13 @@ func isEq(fl FieldLevel) bool {
 		p := asBool(param)
 
 		return field.Bool() == p
+
+	case reflect.Struct:
+		if field.Type().ConvertibleTo(decimalType) {
+			dc := field.Convert(decimalType).Interface().(decimal.Decimal)
+			return dc.Equal(asDecimal(param))
+		}
+
 	}
 
 	panic(fmt.Sprintf("Bad field type %T", field.Interface()))
@@ -2147,6 +2155,11 @@ func isGte(fl FieldLevel) bool {
 
 			return t.After(now) || t.Equal(now)
 		}
+
+		if field.Type().ConvertibleTo(decimalType) {
+			dc := field.Convert(decimalType).Interface().(decimal.Decimal)
+			return dc.GreaterThanOrEqual(asDecimal(param))
+		}
 	}
 
 	panic(fmt.Sprintf("Bad field type %T", field.Interface()))
@@ -2194,6 +2207,11 @@ func isGt(fl FieldLevel) bool {
 		if field.Type().ConvertibleTo(timeType) {
 
 			return field.Convert(timeType).Interface().(time.Time).After(time.Now().UTC())
+		}
+
+		if field.Type().ConvertibleTo(decimalType) {
+			dc := field.Convert(decimalType).Interface().(decimal.Decimal)
+			return dc.GreaterThan(asDecimal(param))
 		}
 	}
 
@@ -2384,6 +2402,11 @@ func isLte(fl FieldLevel) bool {
 
 			return t.Before(now) || t.Equal(now)
 		}
+
+		if field.Type().ConvertibleTo(decimalType) {
+			dc := field.Convert(decimalType).Interface().(decimal.Decimal)
+			return dc.LessThanOrEqual(asDecimal(param))
+		}
 	}
 
 	panic(fmt.Sprintf("Bad field type %T", field.Interface()))
@@ -2431,6 +2454,11 @@ func isLt(fl FieldLevel) bool {
 		if field.Type().ConvertibleTo(timeType) {
 
 			return field.Convert(timeType).Interface().(time.Time).Before(time.Now().UTC())
+		}
+
+		if field.Type().ConvertibleTo(decimalType) {
+			dc := field.Convert(decimalType).Interface().(decimal.Decimal)
+			return dc.LessThan(asDecimal(param))
 		}
 	}
 

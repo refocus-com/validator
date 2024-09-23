@@ -8,6 +8,7 @@ import (
 	"encoding/base64"
 	"encoding/json"
 	"fmt"
+	"github.com/shopspring/decimal"
 	"image"
 	"image/jpeg"
 	"image/png"
@@ -6898,6 +6899,21 @@ func TestFieldContains(t *testing.T) {
 	AssertError(t, errs, "StringTestMissingField.Foo", "StringTestMissingField.Foo", "Foo", "Foo", "fieldcontains")
 }
 
+func TestDecimal(t *testing.T) {
+	validate := New()
+
+	type DecimalTest struct {
+		Foo decimal.Decimal `validate:"eq=0"`
+	}
+
+	decimalTest := &DecimalTest{
+		Foo: decimal.Zero,
+	}
+
+	errs := validate.Struct(decimalTest)
+	Equal(t, errs, nil)
+}
+
 func TestFieldExcludes(t *testing.T) {
 	validate := New()
 
@@ -12004,7 +12020,7 @@ func TestExcludedIf(t *testing.T) {
 
 	test11 := struct {
 		Field1 bool
-  		Field2 *string `validate:"excluded_if=Field1 false"`
+		Field2 *string `validate:"excluded_if=Field1 false"`
 	}{
 		Field1: false,
 		Field2: nil,

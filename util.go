@@ -2,6 +2,7 @@ package validator
 
 import (
 	"fmt"
+	"github.com/shopspring/decimal"
 	"reflect"
 	"regexp"
 	"strconv"
@@ -267,6 +268,12 @@ func asUint(param string) uint64 {
 // or panics if it can't convert
 func asFloat64(param string) float64 {
 	i, err := strconv.ParseFloat(param, 64)
+	panicIf(err)
+	return i
+}
+
+func asDecimal(param string) decimal.Decimal {
+	i, err := decimal.NewFromString(param)
 	panicIf(err)
 	return i
 }
