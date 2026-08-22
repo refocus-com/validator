@@ -6914,6 +6914,30 @@ func TestDecimal(t *testing.T) {
 	Equal(t, errs, nil)
 }
 
+func TestURLOpt(t *testing.T) {
+	validate := New()
+
+	type URLOptTest struct {
+		Foo *string `validate:"omitempty,urlopt"`
+	}
+
+	empty := ""
+	valid := "https://example.com"
+	invalid := "not a url"
+
+	errs := validate.Struct(&URLOptTest{Foo: nil})
+	Equal(t, errs, nil)
+
+	errs = validate.Struct(&URLOptTest{Foo: &empty})
+	Equal(t, errs, nil)
+
+	errs = validate.Struct(&URLOptTest{Foo: &valid})
+	Equal(t, errs, nil)
+
+	errs = validate.Struct(&URLOptTest{Foo: &invalid})
+	NotEqual(t, errs, nil)
+}
+
 func TestFieldExcludes(t *testing.T) {
 	validate := New()
 

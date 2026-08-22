@@ -130,6 +130,7 @@ var (
 		"e164":                          isE164,
 		"email":                         isEmail,
 		"url":                           isURL,
+		"urlopt":                        isURLOpt,
 		"http_url":                      isHttpURL,
 		"uri":                           isURI,
 		"urn_rfc2141":                   isUrnRFC2141, // RFC 2141
@@ -1500,6 +1501,26 @@ func isURL(fl FieldLevel) bool {
 	}
 
 	panic(fmt.Sprintf("Bad field type %T", field.Interface()))
+}
+
+// isURLOpt is isURL with one difference: an empty string passes. Meant to be
+// used instead of `omitempty,url` on a *string - omitempty only looks at
+// pointer-nilness, so a pointer to "" (exactly what a form re-posting a
+// blank input produces) is "present" as far as omitempty is concerned and
+// still reaches url, which has no concept of "optional" and rejects "" like
+// any other malformed value. Still pair with omitempty in the tag: a bare
+// urlopt does not skip a nil pointer on its own, only omitempty does that.
+func isURLOpt(fl FieldLevel) bool {
+	field := fl.Field()
+
+	switch field.Kind() {
+	case reflect.String:
+		if field.Len() == 0 {
+			return true
+		}
+	}
+
+	return isURL(fl)
 }
 
 // isHttpURL is the validation function for validating if the current field's value is a valid HTTP(s) URL.

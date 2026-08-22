@@ -120,6 +120,7 @@ validate := validator.New(validator.WithRequiredStructEnabled())
 | unix_addr | Unix domain socket end point Address |
 | uri | URI String |
 | url | URL String |
+| urlopt | URL String, or empty - pair with `omitempty` so a nil pointer is skipped too; `omitempty` alone does not make a *pointer to `""`* skip `url`, since it only checks pointer-nilness |
 | http_url | HTTP URL String |
 | url_encoded | URL Encoded |
 | urn_rfc2141 | Urn RFC 2141 String |
