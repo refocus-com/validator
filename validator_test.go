@@ -16527,8 +16527,8 @@ func TestValuerInterface(t *testing.T) {
 	t.Run("parent as Valuer (not called)", func(t *testing.T) {
 		errs := New().Struct(&ValuerTypeWithPointerReceiver[SubTest]{})
 		AssertError(t, errs,
-			"ValuerTypeWithPointerReceiver[github.com/go-playground/validator/v10.SubTest].Data.Test",
-			"ValuerTypeWithPointerReceiver[github.com/go-playground/validator/v10.SubTest].Data.Test",
+			"ValuerTypeWithPointerReceiver[github.com/refocus-com/validator.SubTest].Data.Test",
+			"ValuerTypeWithPointerReceiver[github.com/refocus-com/validator.SubTest].Data.Test",
 			"Test", "Test", "required")
 	})
 	t.Run("pointer parent, pointer nested, pointer receiver (called)", func(t *testing.T) {
