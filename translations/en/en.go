@@ -11,7 +11,7 @@ import (
 	"github.com/go-playground/locales"
 	ut "github.com/go-playground/universal-translator"
 
-	"github.com/refocus-com/validator"
+	"github.com/refocus-com/validator/v10"
 )
 
 // RegisterDefaultTranslations registers a set of default translations

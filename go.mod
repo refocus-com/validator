@@ -1,4 +1,4 @@
-module github.com/refocus-com/validator
+module github.com/refocus-com/validator/v10
 
 go 1.25.0
 

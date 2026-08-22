@@ -7,7 +7,7 @@ import (
 	. "github.com/go-playground/assert/v2"
 	brazilian_portuguese "github.com/go-playground/locales/pt_BR"
 	ut "github.com/go-playground/universal-translator"
-	"github.com/refocus-com/validator"
+	"github.com/refocus-com/validator/v10"
 )
 
 type Foo struct{}

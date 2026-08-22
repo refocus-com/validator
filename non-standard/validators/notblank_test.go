@@ -4,7 +4,7 @@ import (
 	"testing"
 
 	"github.com/go-playground/assert/v2"
-	"github.com/refocus-com/validator"
+	"github.com/refocus-com/validator/v10"
 )
 
 type test struct {

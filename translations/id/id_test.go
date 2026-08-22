@@ -7,7 +7,7 @@ import (
 	. "github.com/go-playground/assert/v2"
 	indonesia "github.com/go-playground/locales/id"
 	ut "github.com/go-playground/universal-translator"
-	"github.com/refocus-com/validator"
+	"github.com/refocus-com/validator/v10"
 )
 
 // InitValidator initializes a new validator with Indonesian translations

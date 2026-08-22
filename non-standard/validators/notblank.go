@@ -4,7 +4,7 @@ import (
 	"reflect"
 	"strings"
 
-	"github.com/refocus-com/validator"
+	"github.com/refocus-com/validator/v10"
 )
 
 // NotBlank is the validation function for validating if the current field
